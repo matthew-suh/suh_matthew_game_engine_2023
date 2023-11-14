@@ -10,12 +10,11 @@ game_folder = os.path.dirname(__file__)
 img_folder = os.path.join(game_folder, 'images')
 snd_folder = os.path.join(game_folder, 'sounds')
 
+# Defines the player class
 class Player(Sprite):
+# Initialize the player sprite with an image, position, velocity, etc.
     def __init__(self, game):
         Sprite.__init__(self)
-        # self.image = pg.Surface((50, 50))
-        # self.image.fill(GREEN)
-        # use an image for player sprite...
         self.game = game
         self.image = pg.image.load(os.path.join(img_folder, 'theBigBell.png')).convert()
         self.image.set_colorkey(BLACK)
@@ -55,9 +54,9 @@ class Player(Sprite):
         self.rect.midbottom = self.pos
        
 
-# platforms
-
+# Defines the platforms class
 class Platform(Sprite):
+# Initialize platform attributes like position, movement, etc.
     def __init__(self, x, y, w, h, category):
         Sprite.__init__(self)
         self.image = pg.Surface((w, h))
@@ -69,12 +68,14 @@ class Platform(Sprite):
         self.speed = 0
         if self.category == "moving":
             self.speed = 5
+# Update platform position - allows for movement
     def update(self):
         if self.category == "moving":
             self.rect.x += self.speed
             if self.rect.x + self.rect.w > WIDTH or self.rect.x < 0:
                 self.speed = -self.speed
 
+# Defines the jumpPlatform class
 class jumpPlatform(Sprite):
     def __init__(self, x, y, w, h, category):
         Sprite.__init__(self)
@@ -92,7 +93,10 @@ class jumpPlatform(Sprite):
             self.rect.x += self.speed
             if self.rect.x + self.rect.w > WIDTH or self.rect.x < 0:
                 self.speed = -self.speed
+     
+# Defines the enemy mob class
 class Mob(Sprite):
+# Initialize the enemy mob attributes like the image, position, etc.
     def __init__(self, x, y, w, h, category):
         Sprite.__init__(self)
         self.image = pg.image.load(os.path.join(img_folder, 'enemy.png')).convert()
@@ -104,6 +108,7 @@ class Mob(Sprite):
         self.speed = 0
         if self.category == "moving vertically" or "moving horizontally":
             self.speed = 8
+# Update the mob position - allowing for movement
     def update(self):
         if self.category == "moving horizontally":
             self.rect.x += self.speed
@@ -113,38 +118,10 @@ class Mob(Sprite):
             self.rect.y += self.speed
             if self.rect.y + self.rect.h > HEIGHT or self.rect.y < 0:
                 self.speed = -self.speed
-# class Coin(Sprite):
-#     def __init__(self, x, y, w, h, category):
-#         Sprite.__init__(self)
-#         self.image = pg.image.load(os.path.join(img_folder, 'enemy.png')).convert()
-#         self.image.set_colorkey(BLACK)
-#         self.rect = self.image.get_rect()
-#         self.rect.x = x
-#         self.rect.y = y
-#         self.category = category
-#         self.speed = 0
-#         if self.category == "moving":
-#             self.speed = 5
-#     def update(self):
-#         if self.category == "moving":
-#             self.rect.x += self.speed
-#             if self.rect.x + self.rect.w > WIDTH or self.rect.x < 0:
-#                 self.speed = -self.speed   
 
-
-
-# class Mob(Sprite):
-#     def __init__(self, x, y, w, h, kind):
-#         Sprite.__init__(self)
-#         self.image = pg.Surface((w, h))
-#         self.image.fill(RED)
-#         self.rect = self.image.get_rect()
-#         self.rect.x = x
-#         self.rect.y = y
-#         self.kind = kind
-#         self.pos = vec(WIDTH/2, HEIGHT/2)
-
+# Defines the coin class
 class Coin(Sprite):
+# Initialize the coin attributes like the image, position, etc.
     def __init__(self, x, y, w, h, category):
         Sprite.__init__(self)
         self.image = pg.image.load(os.path.join(img_folder, 'coin.png')).convert()
@@ -161,5 +138,6 @@ class Coin(Sprite):
                     self.speed = -self.speed
                     self.rect.y += 25
 
+# Update the coin position and movement
     def update(self):
         pass
